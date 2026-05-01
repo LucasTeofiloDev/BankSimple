@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Globalization;
 namespace BankSimple
 {
     internal class Conta
     {
         public int NumConta { get; private set; }
         private string _nome;
-        private double _saldo;
+        public double Saldo { get; private set; }
 
 
         public Conta(int numconta, string nome)
@@ -16,10 +16,10 @@ namespace BankSimple
             NumConta = numconta;
             _nome = nome;
         }
-        public Conta(int numconta, string nome, double saldo) : this(numconta, nome)
+        public Conta(int numconta, string nome, double depositoInicial) : this(numconta, nome)
         {
             
-            _saldo = saldo;
+            Deposito(depositoInicial);
         }
 
         public string Nome
@@ -45,7 +45,7 @@ namespace BankSimple
                 Console.WriteLine("Error! Valor menor ou igual a zero");
             } else
             {
-                _saldo += deposito;
+                Saldo += deposito;
             }
         }
 
@@ -56,7 +56,7 @@ namespace BankSimple
                 Console.WriteLine("Error! Valor menor ou igual a zero");
             } else
             {
-                _saldo = ((_saldo - saque) - 5.0);
+                Saldo += saque + 5.0;
                 
             }
         }
@@ -68,7 +68,7 @@ namespace BankSimple
                 + ", Tituar: "
                 + _nome
                 + ", Saldo: $ "
-                + _saldo;
+                + Saldo.ToString("F2", CultureInfo.InvariantCulture);
         }
     }
 }
